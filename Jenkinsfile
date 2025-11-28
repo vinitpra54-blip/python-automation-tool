@@ -17,7 +17,7 @@ pipeline {
                 // 1. สร้าง Virtual Environment (venv) โดยใช้ Path เต็มของ Python
                 // (ใช้ bat สำหรับ Windows)
                 // %PYTHON_HOME% คือ Path ที่คุณกำหนดใน Manage Jenkins -> Configure System
-                bat '"%PYTHON_HOME%\\python.exe" -m venv venv' 
+                bat '"%PYTHON_HOME%\\python.exe" -m venv venv'
                 
                 // 2. ติดตั้ง Dependencies ใน venv
                 // ใช้ 'call' เพื่อเรียก activate.bat และใช้ '&' เพื่อรันคำสั่งต่อกัน
