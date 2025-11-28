@@ -10,12 +10,12 @@ import datetime
 import yaml
 import requests
 
-from src.excel.excelResult import excelLibary
+from src.excel.excelResult import ExcelLibary
 
 class Services:
 
     def __init__(self):
-        self.excel = excelLibary()
+        self.excel = ExcelLibary()
 
     def findDupList(self,List_A,List_B):
         set_a = set(List_A)
@@ -48,7 +48,7 @@ class Services:
         return str(fullPath)
     
     def validateLogInWeb(self):
-        expectedData = self.get_ymal('../test/src/config/tcWebLogin.yaml')
+        expectedData = self.get_ymal('../python-automation/src/config/tcWebLogin.yaml')
         listwriteFile=[]
         for index in range(len(expectedData['Data'])):
 
@@ -96,7 +96,7 @@ class Services:
 
     def validateAPIData(self):
         listwriteFile=[]
-        expectedData = self.get_ymal('../test/src/config/tcApi.yaml')
+        expectedData = self.get_ymal('../python-automation/src/config/tcApi.yaml')
         
         for index in range(len(expectedData['Data'])):
             userId = expectedData['Data'][index]['ID']
