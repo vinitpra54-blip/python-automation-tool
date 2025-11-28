@@ -33,8 +33,7 @@ pipeline {
         
         stage('Archive Results') {
             steps {
-                archiveArtifacts artifacts: 'TesTestResultLoginWebtResult/Test_Automation_Results.xlsx', fingerprint: true
-                archiveArtifacts artifacts: 'TestResultApi/Test_Automation_Results.xlsx', fingerprint: true
+                archiveArtifacts artifacts: 'TestResultLoginWeb/Test_Automation_Results.xlsx' ,archiveArtifacts artifacts: 'TestResultApi/Test_Automation_Results.xlsx'
             }
         }
     }
