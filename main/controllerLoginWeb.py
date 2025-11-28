@@ -12,7 +12,7 @@ class LoginWebController:
     def __init__(self):
         self.objServices = Services()
         self.objexcelResult = ExcelLibary()
-        self.filePath = 'TestResultLoginWeb/Test_Automation_Results.xlsx'
+        self.filePath = '../TestResultLoginWeb/Test_Automation_Results.xlsx'
     
     def runTest(self):
         listResult = self.objServices.validateLogInWeb()
