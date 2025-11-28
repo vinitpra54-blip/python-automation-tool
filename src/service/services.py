@@ -4,6 +4,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
 from pathlib import Path
 import time
 import datetime
@@ -52,10 +54,11 @@ class Services:
         listwriteFile=[]
         for index in range(len(expectedData['Data'])):
 
-            service = ChromeService(ChromeDriverManager().install())
-            driver = webdriver.Chrome(service=service)
+            chrome_options = Options()
+            chrome_options.add_argument("--incognito")
+            driver = webdriver.Chrome(options=chrome_options)
+
             driver.get('http://the-internet.herokuapp.com/login')
-            
             WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//button[@type='submit']")))
             driver.find_element(By.XPATH, "//input[@id='username']").send_keys(expectedData['Data'][index]['userName'])
             driver.find_element(By.XPATH, "//input[@id='password']").send_keys(expectedData['Data'][index]['passWord'])
@@ -63,7 +66,8 @@ class Services:
             driver.save_screenshot(fileSnapshot)
 
             driver.find_element(By.XPATH, "//button[@type='submit']").click()
-            time.sleep(3)
+            time.sleep(2)
+
             fileSnapshot = self.generateFilename("step click submit button",index)
             driver.save_screenshot(fileSnapshot)
             contentSubheader = driver.find_element(By.XPATH,"//div[@id='flash']").text.strip().replace('×', '').strip()
