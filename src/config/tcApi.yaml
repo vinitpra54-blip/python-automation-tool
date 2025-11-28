@@ -1,0 +1,46 @@
+TestCaseName:
+  - 'Get user profile success '
+  - 'Get user profile but user not found'
+
+Obective :
+  - 'To verify get user profile api will return correct data when trying to get profile of existing user'
+  - 'To verify get user profile api will return 404 not found when trying to get exist profile of not existing user'
+
+TestStep:
+  - |
+    1. Send Get request to url https://reqres.in/api/users/12 
+  - |
+    1. Send Get request to url https://reqres.in/api/users/1234 
+
+ExpectedResult:
+  - |
+    1. Verify response status code should be 200 
+    2. Compare the response body with expected below. 
+    ID == 12 
+    Email == rachel.howell@reqres.in 
+    First Name == Rachel 
+    Last Name == Howell 
+    Avatar == https://reqres.in/img/faces/12image.jpg
+  - |
+    1. Verify response status code should be 404. 
+    2. Response body should be '{}'
+
+Data :
+  -  
+    ID : 12 
+    Email : 'rachel.howell@reqres.in' 
+    First Name : 'Rachel' 
+    Last Name : 'Howell' 
+    Avatar : 'https://reqres.in/img/faces/12image.jpg'
+
+  -
+    ID : 1234
+    Email : '' 
+    First Name : '' 
+    Last Name : '' 
+    Avatar : ''
+
+
+
+
+
