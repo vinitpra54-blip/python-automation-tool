@@ -28,6 +28,10 @@ pipeline {
                 
                 echo 'Starting List Duplication Controller...'
                 bat 'call venv\\Scripts\\activate.bat & python main\\controllerListDup.py'
+
+                echo 'Starting List Duplication Controller...'
+                bat 'call venv\\Scripts\\activate.bat & python main\\controllerCipher.py'
+
             }
         }
         
