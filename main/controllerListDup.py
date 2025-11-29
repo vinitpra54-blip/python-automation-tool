@@ -6,7 +6,7 @@ import time
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from src.service.services import Services 
 
-class LoginWebController:
+class listDupController:
     def __init__(self):
         self.objServices = Services()
     
@@ -15,7 +15,7 @@ class LoginWebController:
         print("listResult",listResult)
 
 def main():
-    controller = LoginWebController()
+    controller = listDupController()
     controller.runTest()
 
 

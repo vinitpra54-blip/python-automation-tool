@@ -7,7 +7,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from src.service.services import Services 
 from src.excel.excelResult import ExcelLibary
 
-class ApiController:
+class apiController:
     def __init__(self):
         self.objServices = Services()
         self.objexcelResult = ExcelLibary()
@@ -22,7 +22,7 @@ class ApiController:
         self.objexcelResult.saveTestResult(listResult,self.filePath)
 
 def main():
-    controller = ApiController()
+    controller = apiController()
     controller.runTest()
 
 
