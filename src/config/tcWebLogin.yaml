@@ -1,6 +1,6 @@
 TestCaseName:
   - 'Login success'
-  - 'Login failed - Password'
+  - 'Login failed - Password incorrect'
   - 'Login failed - Username not found incorrect'
 
 Obective :
@@ -13,21 +13,25 @@ TestStep:
     1. Open browser and go to http://theinternet.herokuapp.com/login.  
     2. Input username tomsmith and password  SuperSecretPassword!.  
     3. Click the Logout button.
+
   - |
     1. Open browser and go to http://theinternet.herokuapp.com/login.  
-    2. Input username tomsmith and password Password!.'
+    2. Input username tomsmith and password Password!.
+
   - |
     1. Open browser and go to http://theinternet.herokuapp.com/login.  
-    2. Input username tomholland and password Password!.'
+    2. Input username tomholland and password Password!.
 
 ExpectedResult:
   - |
     1. Login page is shown. 
     2. Login success and message You logged into a secure area! is shown.  
     3. Go back to the Login page and the message  You logged out of the secure area! is shown.
+
   - |
     1. Login page is shown. 
     2. Login failed and the message Your password is invalid! is shown.
+
   - |
     1. Login page is shown.  
     2. Login failed and the message Your username is invalid! is shown.

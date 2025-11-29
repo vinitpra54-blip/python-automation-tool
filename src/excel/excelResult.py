@@ -93,38 +93,38 @@ class ExcelLibary:
 def main():
     obj = ExcelLibary()
 
-    # listResult =[
-    #     [
+    # listResult=[
     #         [
-    #             "Login success",
-    #             "verify that users can login successfully when input a correct username and password.",
-    #             "1. Open browser and go to http://theinternet.herokuapp.com/login. 2. Input username tomsmith and password  SuperSecretPassword!. /n 3. Click the Logout button. ",
-    #             "1. Login page is shown. /n 2. Login success and message You logged into a secure area! is shown. /n 3. Go back to the Login page and the message  You logged out of the secure area! is shown.",
-    #             "Pass",
-    #             "20251128_122114"
-    #         ]
-    #     ],
-    #     [
+    #             [
+    #                 "Login success",
+    #                 "verify that users can login successfully when input a correct username and password.",
+    #                 "1. Open browser and go to http://theinternet.herokuapp.com/login.  \n2. Input username tomsmith and password  SuperSecretPassword!.  \n3. Click the Logout button.\n",
+    #                 "1. Login page is shown. \n2. Login success and message You logged into a secure area! is shown.  \n3. Go back to the Login page and the message  You logged out of the secure area! is shown.\n",
+    #                 "Pass",
+    #                 "20251129_171428"
+    #             ]
+    #         ],
     #         [
-    #             "Login failed - Password",
-    #             "verify that users can login unsuccessfully when they input a correct username but wrong password.",
-    #             "1. Open browser and go to http://theinternet.herokuapp.com/login.  2. Input username tomsmith and password Password!.",
-    #             "1. Login page is shown. 2. Login failed and the message Your password is invalid! is shown.",
-    #             "Pass",
-    #             "20251128_122130"
-    #         ]
-    #     ],
-    #     [
+    #             [
+    #                 "Login failed - Password incorrect",
+    #                 "verify that users can login unsuccessfully when they input a correct username but wrong password.",
+    #                 "1. Open browser and go to http://theinternet.herokuapp.com/login.  \n2. Input username tomsmith and password Password!.\n",
+    #                 "1. Login page is shown. \n2. Login failed and the message Your password is invalid! is shown.\n",
+    #                 "Pass",
+    #                 "20251129_171438"
+    #             ]
+    #         ],
     #         [
-    #             "Login failed - Username not found incorrect",
-    #             "verify that users can login unsuccessfully when they input a username that did not exist.",
-    #             "1. Open browser and go to http://theinternet.herokuapp.com/login.  2. Input username tomholland and password Password!.",
-    #             "1. Login page is shown.  2. Login failed and the message Your username is invalid! is shown. ",
-    #             "Pass",
-    #             "20251128_122145"
+    #             [
+    #                 "Login failed - Username not found incorrect",
+    #                 "verify that users can login unsuccessfully when they input a username that did not exist.",
+    #                 "1. Open browser and go to http://theinternet.herokuapp.com/login.  \n2. Input username tomholland and password Password!.\n",
+    #                 "1. Login page is shown.  \n2. Login failed and the message Your username is invalid! is shown.\n",
+    #                 "Pass",
+    #                 "20251129_171447"
+    #             ]
     #         ]
     #     ]
-    # ]
     # obj.saveTestResult(listResult,'Test_Automation_Results.xlsx')
     # obj.sheet_TestResult(listResult)
 

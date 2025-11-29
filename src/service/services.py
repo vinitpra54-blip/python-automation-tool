@@ -28,6 +28,29 @@ class Services:
 
         return duplicate_list
     
+    def getCipher(self,encrypted, k):
+
+        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        lengthAlphabet  = len(alphabet) 
+        decrypted_string = ""
+
+        for char in encrypted:
+        
+            if 'A' <= char <= 'Z':
+
+                original_index = alphabet.find(char)
+                # print("original_index",original_index)
+                decrypted_index = (original_index - k) % lengthAlphabet
+                # decrypted_index ( 21- 2) %26
+                decrypted_char = alphabet[decrypted_index] 
+                # print("decrypted_char",decrypted_char)
+
+                decrypted_string += decrypted_char
+            else:
+                decrypted_string += char
+
+        return decrypted_string
+
     def get_ymal(self,pathName):
         with open(pathName,'r') as f:
             self.data = yaml.load(f,Loader=yaml.SafeLoader)
@@ -80,8 +103,10 @@ class Services:
                 fileSnapshot = self.generateFilename("step click logout button",index)
                 driver.save_screenshot(fileSnapshot)
 
+
             testResult = "Pass"
             timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+
             listTestCase = [
                                 [
                                     expectedData['TestCaseName'][index]
@@ -93,9 +118,12 @@ class Services:
                                 ]
                             ]
             listwriteFile.append(listTestCase)
+            print("listwriteFile",listwriteFile)
+            
             driver.quit()
 
         return listwriteFile
+
     
 
     def validateAPIData(self):
@@ -156,10 +184,6 @@ class Services:
                 listwriteFile.append(listTestCase)
                 
         return listwriteFile 
-    
-    def writeExcelResult(self,listwriteFile,filePath):
-        excelx = self.excel.saveTestResult(listwriteFile,filePath)
-        return excelx
     
 def main():
     obj = Services()
