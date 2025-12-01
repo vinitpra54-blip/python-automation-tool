@@ -11,6 +11,7 @@ import time
 import datetime
 import yaml
 import requests
+import os 
 
 from src.excel.excelResult import ExcelLibary
 
@@ -18,6 +19,7 @@ class Services:
 
     def __init__(self):
         self.excel = ExcelLibary()
+
 
     def findDupList(self,List_A,List_B):
         set_a = set(List_A)
@@ -73,53 +75,65 @@ class Services:
         return str(fullPath)
     
     def validateLogInWeb(self):
-        expectedData = self.get_ymal('../python-automation/src/config/tcWebLogin.yaml')
+        expectedData = self.get_ymal('src/config/tcWebLogin.yaml')
         listwriteFile=[]
         for index in range(len(expectedData['Data'])):
+            try:
+                chrome_options = Options()
+                chrome_options.add_argument("--incognito")
+                driver = webdriver.Chrome(options=chrome_options)
 
-            chrome_options = Options()
-            chrome_options.add_argument("--incognito")
-            driver = webdriver.Chrome(options=chrome_options)
-
-            driver.get('http://the-internet.herokuapp.com/login')
-            WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//button[@type='submit']")))
-            driver.find_element(By.XPATH, "//input[@id='username']").send_keys(expectedData['Data'][index]['userName'])
-            driver.find_element(By.XPATH, "//input[@id='password']").send_keys(expectedData['Data'][index]['passWord'])
-            fileSnapshot = self.generateFilename("step before click submit button",index)
-            driver.save_screenshot(fileSnapshot)
-
-            driver.find_element(By.XPATH, "//button[@type='submit']").click()
-            time.sleep(2)
-
-            fileSnapshot = self.generateFilename("step click submit button",index)
-            driver.save_screenshot(fileSnapshot)
-            contentSubheader = driver.find_element(By.XPATH,"//div[@id='flash']").text.strip().replace('×', '').strip()
-
-            if contentSubheader == 'You logged into a secure area!':
-                WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,"//a[@class='button secondary radius']")))
-                driver.find_element(By.XPATH,"//a[@class='button secondary radius']").click()
-
+                driver.get('http://the-internet.herokuapp.com/login')
                 WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//button[@type='submit']")))
-                fileSnapshot = self.generateFilename("step click logout button",index)
+                driver.find_element(By.XPATH, "//input[@id='username']").send_keys(expectedData['Data'][index]['userName'])
+                driver.find_element(By.XPATH, "//input[@id='password']").send_keys(expectedData['Data'][index]['passWord'])
+                fileSnapshot = self.generateFilename("step before click submit button",index)
                 driver.save_screenshot(fileSnapshot)
 
+                driver.find_element(By.XPATH, "//button[@type='submit']").click()
+                time.sleep(2)
 
-            testResult = "Pass"
-            timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+                fileSnapshot = self.generateFilename("step click submit button",index)
+                driver.save_screenshot(fileSnapshot)
+                contentSubheader = driver.find_element(By.XPATH,"//div[@id='flash']").text.strip().replace('×', '').strip()
 
-            listTestCase = [
-                                [
-                                    expectedData['TestCaseName'][index]
-                                    ,expectedData['Obective'][index]
-                                    ,expectedData['TestStep'][index]
-                                    ,expectedData['ExpectedResult'][index]
-                                    ,testResult
-                                    ,timestamp
+                if contentSubheader == 'You logged into a secure area!':
+                    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH,"//a[@class='button secondary radius']")))
+                    driver.find_element(By.XPATH,"//a[@class='button secondary radius']").click()
+
+                    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//button[@type='submit']")))
+                    fileSnapshot = self.generateFilename("step click logout button",index)
+                    driver.save_screenshot(fileSnapshot)
+
+
+                testResult = "Pass"
+                timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+
+                listTestCase = [
+                                    [
+                                        expectedData['TestCaseName'][index]
+                                        ,expectedData['Obective'][index]
+                                        ,expectedData['TestStep'][index]
+                                        ,expectedData['ExpectedResult'][index]
+                                        ,testResult
+                                        ,timestamp
+                                    ]
                                 ]
-                            ]
-            listwriteFile.append(listTestCase)
-            print("listwriteFile",listwriteFile)
-            
+                listwriteFile.append(listTestCase)
+            except Exception as e :
+                print(f"Error : {e}")
+                listTestCase = [
+                                    [
+                                        expectedData['TestCaseName'][index]
+                                        ,expectedData['Obective'][index]
+                                        ,expectedData['TestStep'][index]
+                                        ,expectedData['ExpectedResult'][index]
+                                        ,e
+                                        ,timestamp
+                                    ]
+                                ]
+                listwriteFile.append(listTestCase)
+
             driver.quit()
 
         return listwriteFile
@@ -128,7 +142,7 @@ class Services:
 
     def validateAPIData(self):
         listwriteFile=[]
-        expectedData = self.get_ymal('../python-automation/src/config/tcApi.yaml')
+        expectedData = self.get_ymal('src/config/tcApi.yaml')
         
         for index in range(len(expectedData['Data'])):
             userId = expectedData['Data'][index]['ID']
