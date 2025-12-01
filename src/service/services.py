@@ -77,6 +77,7 @@ class Services:
     def validateLogInWeb(self):
         expectedData = self.get_ymal('src/config/tcWebLogin.yaml')
         listwriteFile=[]
+        testResult = None
         for index in range(len(expectedData['Data'])):
             try:
                 chrome_options = Options()
@@ -104,11 +105,15 @@ class Services:
                     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//button[@type='submit']")))
                     fileSnapshot = self.generateFilename("step click logout button",index)
                     driver.save_screenshot(fileSnapshot)
+                    testResult = "Pass"
 
+                elif contentSubheader == 'Your password is invalid!':
+                    testResult = "Pass"
 
-                testResult = "Pass"
+                elif contentSubheader == 'Your username is invalid!':
+                    testResult = "Pass"
+
                 timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-
                 listTestCase = [
                                     [
                                         expectedData['TestCaseName'][index]
@@ -119,6 +124,7 @@ class Services:
                                         ,timestamp
                                     ]
                                 ]
+                 
                 listwriteFile.append(listTestCase)
             except Exception as e :
                 print(f"Error : {e}")
