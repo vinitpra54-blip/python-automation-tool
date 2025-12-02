@@ -27,18 +27,18 @@ ExpectedResult:
 
 Data :
   -  
-    ID : 12 
-    Email : 'rachel.howell@reqres.in' 
-    First Name : 'Rachel' 
-    Last Name : 'Howell' 
-    Avatar : 'https://reqres.in/img/faces/12image.jpg'
+    id : 12
+    email : 'rachel.howell@reqres.in'
+    first_name : 'Rachel' 
+    last_name : 'Howell' 
+    avatar : 'https://reqres.in/img/faces/12-image.jpg'
 
   -
-    ID : 1234
-    Email : '' 
-    First Name : '' 
-    Last Name : '' 
-    Avatar : ''
+    id : 1234
+    email : '' 
+    first_name : '' 
+    last_name : '' 
+    avatar : ''
 
 
 

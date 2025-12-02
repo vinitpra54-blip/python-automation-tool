@@ -147,21 +147,21 @@ class Services:
 
         return listwriteFile
 
-    
-
     def validateAPIData(self):
         listwriteFile=[]
         expectedData = self.get_ymal('src/config/tcApi.yaml')
-        
         for index in range(len(expectedData['Data'])):
-            userId = expectedData['Data'][index]['ID']
-            response = requests.get(f'https://reqres.in/api/users/{userId}')
+
+            userId = expectedData['Data'][index]['id']
+            header = {"x-api-key": "reqres_9df6462e96af41deb01b847514e0fad7"}
+            response = requests.get(f'https://reqres.in/api/users/{userId}', headers=header)
            
             responseCode = response.status_code
             dataResponse = response.json()
 
             if responseCode == 200 : 
-                if dataResponse == expectedData['Data']:
+                dataResponse = dataResponse['data']
+                if dataResponse == expectedData['Data'][index]:
                     testResult = 'Pass'
                     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
                     listTestCase = [
@@ -205,7 +205,6 @@ class Services:
                                 ]
                             ]
                 listwriteFile.append(listTestCase)
-                
         return listwriteFile 
     
 def main():
