@@ -149,6 +149,7 @@ class Services:
 
     def validateAPIData(self):
         listwriteFile=[]
+        testResult = None
         expectedData = self.get_ymal('src/config/tcApi.yaml')
         for index in range(len(expectedData['Data'])):
 
@@ -163,48 +164,28 @@ class Services:
                 dataResponse = dataResponse['data']
                 if dataResponse == expectedData['Data'][index]:
                     testResult = 'Pass'
-                    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-                    listTestCase = [
-                                [
-                                    expectedData['TestCaseName'][index]
-                                    ,expectedData['Obective'][index]
-                                    ,expectedData['TestStep'][index]
-                                    ,expectedData['ExpectedResult'][index]
-                                    ,testResult
-                                    ,timestamp
-                                ]
-                            ]
-                                  
-                    listwriteFile.append(listTestCase)
                 else:
                     testResult = 'Fail'
-                    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-                    listTestCase = [
-                                [
-                                    expectedData['TestCaseName'][index]
-                                    ,expectedData['Obective'][index]
-                                    ,expectedData['TestStep'][index]
-                                    ,expectedData['ExpectedResult'][index]
-                                    ,testResult
-                                    ,timestamp
-                                ]
-                            ]
-                    listwriteFile.append(listTestCase)
-                    
+            elif responseCode == 404 :
+                    if dataResponse == {} :
+                        testResult = 'Pass'
+                    else:
+                        testResult = 'Fail'
             else : 
                 testResult = 'Fail'
-                timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-                listTestCase = [
-                                [
-                                    expectedData['TestCaseName'][index]
-                                    ,expectedData['Obective'][index]
-                                    ,expectedData['TestStep'][index]
-                                    ,expectedData['ExpectedResult'][index]
-                                    ,testResult
-                                    ,timestamp
-                                ]
+
+            timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+            listTestCase = [
+                            [
+                                expectedData['TestCaseName'][index]
+                                ,expectedData['Obective'][index]
+                                ,expectedData['TestStep'][index]
+                                ,expectedData['ExpectedResult'][index]
+                                ,testResult
+                                ,timestamp
                             ]
-                listwriteFile.append(listTestCase)
+                        ]
+            listwriteFile.append(listTestCase)
         return listwriteFile 
     
 def main():
