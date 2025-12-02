@@ -113,6 +113,9 @@ class Services:
                 elif contentSubheader == 'Your username is invalid!':
                     testResult = "Pass"
 
+                else:
+                    testResult = "Fail"
+
                 timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
                 listTestCase = [
                                     [
