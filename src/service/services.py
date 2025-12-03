@@ -150,11 +150,12 @@ class Services:
     def validateAPIData(self):
         listwriteFile=[]
         testResult = None
+        secret_ket = "reqres_9df6462e96af41deb01b847514e0fad7"
         expectedData = self.get_ymal('src/config/tcApi.yaml')
         for index in range(len(expectedData['Data'])):
 
             userId = expectedData['Data'][index]['id']
-            header = {"x-api-key": "reqres_9df6462e96af41deb01b847514e0fad7"}
+            header = {"x-api-key": secret_ket}
             response = requests.get(f'https://reqres.in/api/users/{userId}', headers=header)
            
             responseCode = response.status_code
@@ -195,5 +196,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
