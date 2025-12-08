@@ -12,14 +12,18 @@ import datetime
 import yaml
 import requests
 import os 
-
 from src.excel.excelResult import ExcelLibary
+
+from dotenv import load_dotenv
+base_dir = Path(__file__).resolve().parent.parent
+dotenv_path = base_dir / '.env'
+load_dotenv(dotenv_path=dotenv_path)
 
 class Services:
 
     def __init__(self):
         self.excel = ExcelLibary()
-
+        
 
     def findDupList(self,List_A,List_B):
         set_a = set(List_A)
@@ -150,12 +154,14 @@ class Services:
     def validateAPIData(self):
         listwriteFile=[]
         testResult = None
-        secret_ket = "reqres_9df6462e96af41deb01b847514e0fad7"
+        api_key = os.getenv("api_key")
+        print("api_key",api_key)
+
         expectedData = self.get_ymal('src/config/tcApi.yaml')
         for index in range(len(expectedData['Data'])):
 
             userId = expectedData['Data'][index]['id']
-            header = {"x-api-key": secret_ket}
+            header = {"x-api-key": api_key }
             response = requests.get(f'https://reqres.in/api/users/{userId}', headers=header)
            
             responseCode = response.status_code
@@ -188,6 +194,26 @@ class Services:
                         ]
             listwriteFile.append(listTestCase)
         return listwriteFile 
+    
+    def coverPage(self):
+        listCoverPage = []
+        expectedData = self.get_ymal('src/config/converPage.yaml')
+
+        timestamp = datetime.datetime.now().strftime("%Y%m%dT%H%M%S")
+
+        for index in range(len(expectedData['CoverPage'])):
+            testBy = expectedData['CoverPage'][index]['TestBy']
+            TestEnv = expectedData['CoverPage'][index]['TestEnv']
+
+            coverPageList = [
+                    timestamp
+                    ,testBy
+                    ,TestEnv
+            ]
+
+        listCoverPage.append(coverPageList)
+
+        return listCoverPage
     
 def main():
     obj = Services()
